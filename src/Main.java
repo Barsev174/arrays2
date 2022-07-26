@@ -1,28 +1,50 @@
 import java.util.Arrays;
 
 public class Main {
-    static int[] arr = generateRandomArray();
+    static int[] accountantsBook = generateRandomArray();
+
 
     public static void main(String[] args) {
 
         //Задача 1
         System.out.println("Задача 1");
-        System.out.println("Ежемесячные траты " + Arrays.toString(arr));
-        System.out.println("Сумма трат за месяц составила " + count() + " рублей.");
+        System.out.println("Ежемесячные траты " + Arrays.toString(accountantsBook));// пока оставил это метод
+        // хотется оставить Maim "чистым", но метод не получается, поэтому ниже пришелся по масссиву циклом
+        System.out.print("Ежемесячные траты ");
+        for (int i = 0; i < accountantsBook.length; i++) {
+            if (i == accountantsBook.length - 1) {
+                System.out.println(accountantsBook[i]);
+            } else {
+                System.out.print(accountantsBook[i] + ", ");
+            }
+        }
+        System.out.println("Сумма трат за месяц составила " + theSumOfAllExpensesForTheMonth() + " рублей.");
         // Задача 2
         System.out.println("Задача 2");
-        System.out.println("Минимальная сумма трат за день составила " + minWaste() + " рублей.");
-        System.out.println("Максимальная сумма трат за день составила " + maxWaste() + " рублей.");
+        System.out.println("Минимальная сумма трат за день составила " + minimumExpensesPerDay() + " рублей.");
+        System.out.println("Максимальная сумма трат за день составила " + maximumExpensesPerDay() + " рублей.");
         // Задача 3
         System.out.println("Задача 3");
         System.out.println("Средняя сумма трат за месяц составила " + average() + " рублей.");
         // Задача 4.
         System.out.println("Задача 4");
-        char[] reverseFullName = {'n', 'a', 'v', 'I', ' ', 'v', 'o', 'n', 'a', 'v', 'I'};
-        for (int i = reverseFullName.length - 1; i >= 0; i--) {
-            System.out.print(reverseFullName[i]);
-        }
+        System.out.println(correctFullName());
+
+
     }
+
+
+    // вроде нет в условии, что мы должны вывести траты за каждый день, но вывести то хочется)
+    /* public static void spendingPerDay () {   // не поимаю какие модификаторы нужны, и какую переменную поставить. Склоняюсь к String, но реализовать не получаетя
+        for (int i = 0; i < arr.length; i++) {
+            if (i == arr.length - 1){
+                System.out.println(arr[i]);
+            } else {
+                System.out.print(arr[i] + ", ");
+            }
+        }
+        return;// не могу понять, что мы должны возвращать
+    } */
 
     public static int[] generateRandomArray() {
         java.util.Random random = new java.util.Random();
@@ -33,39 +55,51 @@ public class Main {
         return arr;
     }
 
-    public static int count() {
-
-        int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum = sum + arr[i];
+    public static int theSumOfAllExpensesForTheMonth() {
+        int minPossibleAmount = 0;
+        int sum = minPossibleAmount;
+        for (int i = 0; i < accountantsBook.length; i++) {
+            sum = sum + accountantsBook[i];
         }
         return sum;
     }
 
-    public static int maxWaste() {
-        int max = 0;
-
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
+    public static int maximumExpensesPerDay() {
+        int minPossibleWaste = 0;
+        int max = minPossibleWaste;
+        for (int i = 0; i < accountantsBook.length; i++) {
+            if (accountantsBook[i] > max) {
+                max = accountantsBook[i];
             }
         }
         return max;
     }
 
-    public static int minWaste() {
-        int min = 200_000;
-
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] < min) {
-                min = arr[i];
+    public static int minimumExpensesPerDay() {
+        int maxPossibleWaste = 200_000; // магическое число, но не знаю, как написать иначе
+        int min = maxPossibleWaste;
+        for (int i = 0; i < accountantsBook.length; i++) {
+            if (accountantsBook[i] < min) {
+                min = accountantsBook[i];
             }
         }
         return min;
     }
 
     public static double average() {
-        return (double) count() / arr.length;
+        int numberOfDays = accountantsBook.length;// стоит ли вводить новую переменную, только для красоты?
+        return (double) theSumOfAllExpensesForTheMonth() / numberOfDays;
+    }
+
+    public static char[] correctFullName() {
+        char[] reverseFullName = {'n', 'a', 'v', 'I', ' ', 'v', 'o', 'n', 'a', 'v', 'I'};
+        for (int i = 0; i < reverseFullName.length / 2; i++) {
+            char temp = reverseFullName[i];
+            reverseFullName[i] = reverseFullName[reverseFullName.length - i - 1];
+            reverseFullName[reverseFullName.length - i - 1] = temp;
+
+        }
+        return reverseFullName;
     }
 }
 
