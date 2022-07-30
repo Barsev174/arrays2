@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.Arrays;
 
 public class Main {
@@ -29,22 +30,65 @@ public class Main {
         // Задача 4.
         System.out.println("Задача 4");
         System.out.println(correctFullName());
+        // Задача 5.
+        System.out.println("Задача 5");
+        int[][] matrix = new int[3][3];
+        for (int i = 0; i < matrix.length; i++) {
+            matrix[i][i]= 1;
+            matrix[i][matrix.length - i - 1]=1;
+        }
+        for (int[] row : matrix) {
+            for (int column : row) {
+                System.out.print(column + " ");
+            }
+            System.out.println();
 
 
-    }
+        }
+        // Задача 6.
+        System.out.println("Задача 6");
+        int[] mirrorArray = {5, 4, 3, 2, 1};
+        int[] correctArray = new int[5];
+        for (int i = 0; i < mirrorArray.length; i++) {
+            correctArray[mirrorArray.length - i - 1] = mirrorArray[i];
+        }
+        System.out.println("До преобразования - " + Arrays.toString(mirrorArray));
+        System.out.println("После преобразования с использованием дополнителного массива- " + Arrays.toString(correctArray));
 
+        // Задача 7.
+        System.out.println("Задача 7");
+        for (int i = 0; i < mirrorArray.length / 2; i++) {
+            int tmp = mirrorArray[i];
+            mirrorArray[i] = mirrorArray[mirrorArray.length - i - 1];
+            mirrorArray[mirrorArray.length - i - 1] = tmp;
+        }
+        System.out.println("После преобразования без использования дополнительного массива - " + Arrays.toString(mirrorArray));
 
-    // вроде нет в условии, что мы должны вывести траты за каждый день, но вывести то хочется)
-    /* public static void spendingPerDay () {   // не поимаю какие модификаторы нужны, и какую переменную поставить. Склоняюсь к String, но реализовать не получаетя
-        for (int i = 0; i < arr.length; i++) {
-            if (i == arr.length - 1){
-                System.out.println(arr[i]);
-            } else {
-                System.out.print(arr[i] + ", ");
+        // Задача 8.
+        System.out.println("Задача 8");
+
+        int[] numbers = {-6, 2, 5, -8, 8, 10, 4, -7, 12, 1};
+        Arrays.sort(numbers);
+        System.out.println(Arrays.toString(numbers));
+        int j = 1;
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] + numbers[j] == -2) {
+                if (numbers[i] + numbers[j] == -2) {
+                    System.out.println("Сумма чисел " + numbers[i] + " и " + numbers[j] + " будет равна -2");
+                    j++;
+                }
             }
         }
-        return;// не могу понять, что мы должны возвращать
-    } */
+        // Задача 9.
+        System.out.println("Задача 9");
+        for (int i = 0; i < numbers.length; i++) {
+            for (int n = i + 1; n < numbers.length; n++) {
+                if (n != i && (numbers[n] + numbers[i]) == -2) {
+                    System.out.println("Сумма чисел " + numbers[i] + " и " + numbers[n] + " будет равна -2");
+                }
+            }
+        }
+    }
 
     public static int[] generateRandomArray() {
         java.util.Random random = new java.util.Random();
@@ -56,8 +100,8 @@ public class Main {
     }
 
     public static int theSumOfAllExpensesForTheMonth() {
-        int minPossibleAmount = 0;
-        int sum = minPossibleAmount;
+
+        int sum = accountantsBook[0];
         for (int i = 0; i < accountantsBook.length; i++) {
             sum = sum + accountantsBook[i];
         }
@@ -76,8 +120,7 @@ public class Main {
     }
 
     public static int minimumExpensesPerDay() {
-        int maxPossibleWaste = 200_000; // магическое число, но не знаю, как написать иначе
-        int min = maxPossibleWaste;
+        int min = accountantsBook[0];
         for (int i = 0; i < accountantsBook.length; i++) {
             if (accountantsBook[i] < min) {
                 min = accountantsBook[i];
